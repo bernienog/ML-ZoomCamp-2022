@@ -1,0 +1,25 @@
+conda install numpy
+import numpy as np
+np.__version__
+conda install pandas
+import pandas as pd
+data= pd.read_csv('Documents/data.csv')
+data.shape
+data.columns
+data['Make'].value_counts()
+audi_data= data[data['Make']=='Audi']
+audi_data['Model'].value_counts().shape
+data.isna().any(axis=0).sum()
+data['Engine Cylinders'].mean()
+data['Engine Cylinders'].median()
+data['Engine Cylinders'].mode()
+data['Engine Cylinders'].fillna(4.0).median()
+lotus_data= data[data['Make'] =='Lotus']
+lotus_data_sub = lotus_data[['Engine HP', 'Engine Cylinders']]
+lotus_data_sub = lotus_data_sub.drop_duplicates()
+X= np.array(lotus_data_sub)
+X_trans= X.T
+XTX= np.matmul(X_trans, X)
+XTX_inv = np.linalg.inv(XTX)
+y= np.array([1100, 800, 750, 850, 1300, 1000, 1000, 1300, 800])
+np.matmul(np.matmul(XTX_inv, X_trans), y )
